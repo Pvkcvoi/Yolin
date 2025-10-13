@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mapa Interactivo</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="map-container">
+    <div class="toolbar">
+      <button id="zoomIn">🔍+</button>
+      <button id="zoomOut">🔍−</button>
+      <button id="resetZoom">↺</button>
+    </div>
+    <div id="mapWrapper">
+      <!-- SVG cargado dinámicamente -->
+    </div>
+  </div>
+
+  <div id="infoPanel" class="hidden">
+    <h2 id="regionName"></h2>
+    <p id="regionInfo"></p>
+    <button id="closeInfo">Cerrar</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

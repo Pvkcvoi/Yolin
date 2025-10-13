@@ -1,0 +1,15 @@
+{
+    "1": {
+      "nombre": "Alcaldía Central",
+      "info": "Población: 120,000 habitantes. Actividad principal: comercio."
+    },
+    "2": {
+      "nombre": "Alcaldía Norte",
+      "info": "Población: 85,000 habitantes. Actividad principal: industria."
+    },
+    "3": {
+      "nombre": "Alcaldía Sur",
+      "info": "Población: 60,000 habitantes. Actividad principal: agricultura."
+    }
+  }
+  
