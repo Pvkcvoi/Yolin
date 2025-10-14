@@ -3,25 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mapa Interactivo</title>
+  <title>Mapa Dinámico por Datos</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="map-container">
-    <div class="toolbar">
-      <button id="zoomIn">🔍+</button>
-      <button id="zoomOut">🔍−</button>
-      <button id="resetZoom">↺</button>
-    </div>
-    <div id="mapWrapper">
-      <!-- SVG cargado dinámicamente -->
-    </div>
+  <div class="panel">
+    <label for="filtro">Filtrar por categoría:</label>
+    <select id="filtro">
+      <option value="todas">Todas</option>
+      <option value="industrial">Industrial</option>
+      <option value="agrícola">Agrícola</option>
+    </select>
+  </div>
+
+  <div id="mapContainer">
+    <svg id="mapSvg"></svg>
   </div>
 
   <div id="infoPanel" class="hidden">
-    <h2 id="regionName"></h2>
-    <p id="regionInfo"></p>
-    <button id="closeInfo">Cerrar</button>
+    <h2 id="nombre"></h2>
+    <p id="detalle"></p>
+    <button id="cerrar">Cerrar</button>
   </div>
 
   <script src="script.js"></script>
