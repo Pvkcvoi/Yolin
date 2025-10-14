@@ -1,85 +1,53 @@
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f0f0f0;
-  }
-  
-  .map-container {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-  }
-  
-  #mapWrapper {
-    width: 100%;
-    height: 100%;
-    cursor: grab;
-  }
-  
-  #mapWrapper:active {
-    cursor: grabbing;
-  }
-  
-  svg {
-    width: 100%;
-    height: 100%;
-    transition: transform 0.3s ease;
-    border: 1px solid #ccc;
-  }
-  
-  .alcaldia {
-    fill: #c8d8f0;
-    stroke: #444;
-    stroke-width: 1;
-    transition: fill 0.2s, stroke-width 0.2s;
-  }
-  
-  .alcaldia:hover {
-    stroke: #222;
-    stroke-width: 2.5;
-  }
-  
-  .toolbar {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-  
-  .toolbar button {
-    background: #fff;
-    border: 1px solid #aaa;
-    padding: 5px 8px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  #infoPanel {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: white;
-    border: 1px solid #ccc;
-    padding: 15px;
-    border-radius: 10px;
-    width: 250px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  }
-  
-  .hidden {
-    display: none;
-  }
-  
-  #closeInfo {
-    margin-top: 10px;
-    background: #d9534f;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+}
+
+.panel {
+  background: white;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+#mapContainer {
+  width: 100%;
+  height: 90vh;
+  overflow: hidden;
+  position: relative;
+}
+
+svg {
+  width: 100%;
+  height: 100%;
+  background: #eaeaea;
+  cursor: grab;
+}
+
+polygon {
+  stroke: #333;
+  stroke-width: 1.5;
+  fill-opacity: 0.8;
+  transition: 0.2s;
+}
+
+polygon:hover {
+  stroke-width: 3;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+#infoPanel {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: white;
+  border-radius: 8px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  width: 200px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
