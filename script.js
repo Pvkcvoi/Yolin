@@ -1,90 +1,70 @@
-let svgElement, zoomLevel = 1, panX = 0, panY = 0;
-let isPanning = false, startX, startY;
-let mapData = {};
+let zoom = 1, panX = 0, panY = 0;
+let svg, isPanning = false, startX, startY;
+let data = [];
 
-async function loadMap() {
-  const mapWrapper = document.getElementById("mapWrapper");
-  const response = await fetch("map.svg");
-  const svgText = await response.text();
-  mapWrapper.innerHTML = svgText;
+document.addEventListener("DOMContentLoaded", async () => {
+  svg = document.getElementById("mapSvg");
+  data = await fetch("data.json").then(r => r.json());
 
-  svgElement = mapWrapper.querySelector("svg");
+  renderPolygons(data);
 
-  // Agregar clase a todas las regiones del mapa
-  svgElement.querySelectorAll("path, polygon, rect").forEach(el => {
-    el.classList.add("alcaldia");
+  // Filtro dinámico
+  document.getElementById("filtro").addEventListener("change", e => {
+    const filtro = e.target.value;
+    if (filtro === "todas") renderPolygons(data);
+    else renderPolygons(data.filter(d => d.categoria === filtro));
   });
 
-  // Cargar datos JSON
-  mapData = await fetch("data.json").then(res => res.json());
+  // Eventos de zoom y pan
+  svg.addEventListener("wheel", zoomMap);
+  svg.addEventListener("mousedown", startPan);
+  svg.addEventListener("mousemove", movePan);
+  svg.addEventListener("mouseup", endPan);
+});
 
-  // Eventos de interacción
-  svgElement.querySelectorAll(".alcaldia").forEach(el => {
-    el.addEventListener("click", e => showInfo(el.id));
+function renderPolygons(dataset) {
+  svg.innerHTML = "";
+
+  dataset.forEach(item => {
+    const points = item.coordenadas.map(c => c.join(",")).join(" ");
+    const polygon = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+    polygon.setAttribute("points", points);
+    polygon.setAttribute("id", item.id);
+    polygon.style.fill = item.categoria === "industrial" ? "#a3c4f3" : "#a8e6a1";
+
+    polygon.addEventListener("click", () => showInfo(item));
+    svg.appendChild(polygon);
   });
 
-  // Zoom con la rueda
-  svgElement.addEventListener("wheel", handleZoom);
-
-  // Arrastrar (pan)
-  mapWrapper.addEventListener("mousedown", startPan);
-  mapWrapper.addEventListener("mousemove", panMove);
-  mapWrapper.addEventListener("mouseup", endPan);
-
-  // Botones de zoom
-  document.getElementById("zoomIn").addEventListener("click", () => adjustZoom(1.2));
-  document.getElementById("zoomOut").addEventListener("click", () => adjustZoom(0.8));
-  document.getElementById("resetZoom").addEventListener("click", resetZoom);
-
-  // Botón cerrar panel
-  document.getElementById("closeInfo").addEventListener("click", () => {
-    document.getElementById("infoPanel").classList.add("hidden");
-  });
+  updateTransform();
 }
 
-// Mostrar información
-function showInfo(id) {
+function showInfo(item) {
   const panel = document.getElementById("infoPanel");
-  const region = mapData[id];
+  document.getElementById("nombre").textContent = item.nombre;
+  document.getElementById("detalle").textContent = 
+    `Categoría: ${item.categoria}\nPoblación: ${item.poblacion}`;
+  panel.classList.remove("hidden");
 
-  if (region) {
-    document.getElementById("regionName").textContent = region.nombre;
-    document.getElementById("regionInfo").textContent = region.info;
-    panel.classList.remove("hidden");
-  } else {
-    document.getElementById("regionName").textContent = "Desconocido";
-    document.getElementById("regionInfo").textContent = "No hay datos disponibles.";
-    panel.classList.remove("hidden");
-  }
+  document.getElementById("cerrar").onclick = () => panel.classList.add("hidden");
 }
 
-// Control de zoom
-function handleZoom(e) {
+// Zoom
+function zoomMap(e) {
   e.preventDefault();
   const delta = e.deltaY < 0 ? 1.1 : 0.9;
-  adjustZoom(delta);
-}
-
-function adjustZoom(factor) {
-  zoomLevel *= factor;
+  zoom *= delta;
   updateTransform();
 }
 
-function resetZoom() {
-  zoomLevel = 1;
-  panX = 0;
-  panY = 0;
-  updateTransform();
-}
-
-// Control de arrastre
+// Pan
 function startPan(e) {
   isPanning = true;
   startX = e.clientX - panX;
   startY = e.clientY - panY;
 }
 
-function panMove(e) {
+function movePan(e) {
   if (!isPanning) return;
   panX = e.clientX - startX;
   panY = e.clientY - startY;
@@ -96,8 +76,5 @@ function endPan() {
 }
 
 function updateTransform() {
-  svgElement.style.transform = `translate(${panX}px, ${panY}px) scale(${zoomLevel})`;
+  svg.style.transform = `translate(${panX}px, ${panY}px) scale(${zoom})`;
 }
-
-// Cargar mapa al iniciar
-document.addEventListener("DOMContentLoaded", loadMap);
