@@ -1,0 +1,14 @@
+<h2>Cuenta</h2>
+<p>Número de cuenta: {{ account }}</p>
+<p>Tokens disponibles: {{ tokens }}</p>
+
+
+<h3>Transferir Tokens</h3>
+<form method="post">
+<input name="receiver" placeholder="Cuenta destino" required>
+<input name="amount" type="number" placeholder="Monto" required>
+<button>Transferir</button>
+</form>
+
+
+<a href="/logout">Cerrar sesión</a>
