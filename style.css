@@ -1,0 +1,89 @@
+* {
+}
+
+
+form {
+display: flex;
+flex-direction: column;
+gap: 12px;
+}
+
+
+input {
+padding: 10px;
+border-radius: 6px;
+border: 1px solid #ccc;
+}
+
+
+button, .btn {
+padding: 10px;
+border-radius: 6px;
+border: none;
+background: #2a5298;
+color: white;
+text-decoration: none;
+cursor: pointer;
+font-weight: bold;
+}
+
+
+.btn.secondary {
+background: #777;
+}
+
+
+.actions {
+display: flex;
+gap: 10px;
+justify-content: center;
+}
+
+
+button:hover, .btn:hover {
+opacity: 0.9;
+}
+
+
+p {
+margin: 8px 0;
+}
+
+
+============================
+4. EJECUCIÓN
+============================
+
+
+1. Instalar dependencias:
+pip install flask werkzeug
+
+
+2. Ejecutar:
+python app.py
+
+
+3. Abrir en navegador:
+http://127.0.0.1:5000
+
+
+============================
+5. ESTADO DEL SISTEMA
+============================
+
+
+✔ Registro con cuenta única de 10 dígitos
+✔ Login seguro
+✔ Tokens iniciales
+✔ Transferencias con validación de saldo
+✔ Persistencia en base de datos
+
+
+Este sistema es una base sólida sobre la cual puede construir una wallet realista.
+
+
+Si desea, puedo:
+- Separar frontend y backend
+- Convertirlo en API REST
+- Agregar historial de transferencias
+- Mejorar seguridad (JWT, CSRF, roles)
